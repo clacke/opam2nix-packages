@@ -70,7 +70,6 @@ let
 			# used by `build`, so that you can combine import-time (world) options
 			# with select-time options
 			ocamlAttr ? null,
-			ocaml ? null,
 			ocamlVersion ? null,
 			basePackages ? null,
 			specs,
