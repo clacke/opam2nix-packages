@@ -184,7 +184,7 @@ let
 		# official repositories.
 		buildOpamPackages = { packagesParsed, ... } @ attrs:
 			let
-				drvAttrs = removeAttrs attrs [ "opamFile" "packagesParsed" "extraPackages" ];
+				drvAttrs = removeAttrs attrs [ "packagesParsed" "extraPackages" ];
 
 				opamRepo =
 					{ packageName
@@ -220,14 +220,16 @@ let
 
 				makeSpec = { packageName, version, ... }: { name = packageName; constraint = "=${version}"; };
 
+				repos = map opamRepo attrs.packagesParsed;
+
 				opamAttrs = (drvAttrs // {
 					# `specs` is undocumented, left for consistency
 					specs = (attrs.specs or []) ++ map makeSpec attrs.packagesParsed;
-					extraRepos = (attrs.extraRepos or []) ++ map opamRepo attrs.packagesParsed;
+					extraRepos = (attrs.extraRepos or []) ++ repos;
 				});
 			in
 			{
-				repo = opamRepo;
+				inherit repos;
 				packageSet = utils.buildPackageSet opamAttrs;
 				selection = utils.selectionsFileLax opamAttrs;
 			};
