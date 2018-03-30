@@ -186,9 +186,14 @@ let
 			let
 				drvAttrs = removeAttrs attrs [ "opamFile" "packagesParsed" "extraPackages" ];
 
-				opamRepo = { packageName, version, src }: let
-					opamFilename = attrs.opamFile or "\"$(find . -maxdepth 1 -name 'opam' -o -name '*.opam')\"";
-					in stdenv.mkDerivation {
+				opamRepo =
+					{ packageName
+					, version
+					, src
+					, opamFile ? "\"$(find . -maxdepth 1 -name 'opam' -o -name '*.opam')\""
+					}:
+
+					stdenv.mkDerivation {
 						name = "${packageName}-${version}-repo";
 						inherit src;
 						configurePhase = "true";
@@ -200,7 +205,7 @@ let
 							fi
 							dest="$out/packages/${packageName}/${packageName}.${version}"
 							mkdir -p "$dest"
-							cp ${opamFilename} "$dest/opam"
+							cp ${opamFile} "$dest/opam"
 							if ! [ -f "$dest/opam" ]; then
 								echo "Error: opam file not created"
 								exit 1
