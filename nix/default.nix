@@ -152,11 +152,10 @@ let
 			[selections.ocaml] ++ (utils.packagesOfSelections specs selections);
 
 		# Takes a single spec and only returns a single selected package matching that.
-		buildPackageSpec = spec: args: builtins.getAttr name (utils.buildPackageSet ({ specs = [spec]; } // args));
+		buildPackageSpec = spec: args: builtins.getAttr spec.name (utils.buildPackageSet ({ specs = [spec]; } // args));
 
 		# Like `buildPackageSpec` but only returns the single selected package.
 		buildPackage = name: buildPackageConstraint { inherit name; };
-
 
 		# Build a nix derivation from a (local) opam library, i.e. one not in the
 		# official repositories
