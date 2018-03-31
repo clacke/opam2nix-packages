@@ -5,6 +5,7 @@ world:
   "1.5.1" = import ./1.5.1 world;
   "1.5.2" = import ./1.5.2 world;
   "2.0" = import ./2.0 world;
-  latest = import ./2.0 world;
+  "2.1" = import ./2.1 world;
+  latest = import ./2.1 world;
 }
 

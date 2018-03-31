@@ -37,6 +37,8 @@ world:
   altgr-ergo = import ./altgr-ergo world;
   amf = import ./amf world;
   amqp-client = import ./amqp-client world;
+  amqp-client-async = import ./amqp-client-async world;
+  amqp-client-lwt = import ./amqp-client-lwt world;
   ancient = import ./ancient world;
   angstrom = import ./angstrom world;
   angstrom-async = import ./angstrom-async world;
@@ -97,6 +99,8 @@ world:
   aws-ec2 = import ./aws-ec2 world;
   aws-elasticloadbalancing = import ./aws-elasticloadbalancing world;
   aws-s3 = import ./aws-s3 world;
+  aws-s3-async = import ./aws-s3-async world;
+  aws-s3-lwt = import ./aws-s3-lwt world;
   aws-sdb = import ./aws-sdb world;
   aws-ssm = import ./aws-ssm world;
   aws-sts = import ./aws-sts world;
@@ -129,15 +133,21 @@ world:
   bap-llvm = import ./bap-llvm world;
   bap-mc = import ./bap-mc world;
   bap-microx = import ./bap-microx world;
+  bap-mips = import ./bap-mips world;
   bap-objdump = import ./bap-objdump world;
   bap-phoenix = import ./bap-phoenix world;
   bap-piqi = import ./bap-piqi world;
+  bap-powerpc = import ./bap-powerpc world;
   bap-primus = import ./bap-primus world;
+  bap-primus-dictionary = import ./bap-primus-dictionary world;
   bap-primus-lisp = import ./bap-primus-lisp world;
+  bap-primus-region = import ./bap-primus-region world;
   bap-primus-support = import ./bap-primus-support world;
+  bap-primus-test = import ./bap-primus-test world;
   bap-primus-x86 = import ./bap-primus-x86 world;
   bap-print = import ./bap-print world;
   bap-relocatable = import ./bap-relocatable world;
+  bap-report = import ./bap-report world;
   bap-run = import ./bap-run world;
   bap-server = import ./bap-server world;
   bap-signatures = import ./bap-signatures world;
@@ -150,9 +160,11 @@ world:
   bap-term-mapper = import ./bap-term-mapper world;
   bap-trace = import ./bap-trace world;
   bap-traces = import ./bap-traces world;
+  bap-trivial-condition-form = import ./bap-trivial-condition-form world;
   bap-veri = import ./bap-veri world;
   bap-warn-unused = import ./bap-warn-unused world;
   bap-x86 = import ./bap-x86 world;
+  bare = import ./bare world;
   base = import ./base world;
   base-bigarray = import ./base-bigarray world;
   base-bytes = import ./base-bytes world;
@@ -223,6 +235,7 @@ world:
   cairo = import ./cairo world;
   cairo2 = import ./cairo2 world;
   calculon = import ./calculon world;
+  calculon-web = import ./calculon-web world;
   calendar = import ./calendar world;
   callipyge = import ./callipyge world;
   caml-mode = import ./caml-mode world;
@@ -384,6 +397,7 @@ world:
   conf-python-2-7-dev = import ./conf-python-2-7-dev world;
   conf-qt = import ./conf-qt world;
   conf-r = import ./conf-r world;
+  conf-r-mathlib = import ./conf-r-mathlib world;
   conf-rdkit = import ./conf-rdkit world;
   conf-rocksdb = import ./conf-rocksdb world;
   conf-sdl-gfx = import ./conf-sdl-gfx world;
@@ -529,6 +543,8 @@ world:
   dispatch = import ./dispatch world;
   dispatch-js = import ./dispatch-js world;
   distributed = import ./distributed world;
+  distributed-lwt = import ./distributed-lwt world;
+  distributed-uwt = import ./distributed-uwt world;
   distwit = import ./distwit world;
   diy = import ./diy world;
   dlist = import ./dlist world;
@@ -824,6 +840,7 @@ world:
   js_of_ocaml-lwt = import ./js_of_ocaml-lwt world;
   js_of_ocaml-ocamlbuild = import ./js_of_ocaml-ocamlbuild world;
   js_of_ocaml-ppx = import ./js_of_ocaml-ppx world;
+  js_of_ocaml-ppx_deriving_json = import ./js_of_ocaml-ppx_deriving_json world;
   js_of_ocaml-toplevel = import ./js_of_ocaml-toplevel world;
   js_of_ocaml-tyxml = import ./js_of_ocaml-tyxml world;
   json-derivers = import ./json-derivers world;
@@ -851,6 +868,7 @@ world:
   kicadsch = import ./kicadsch world;
   kinetic-client = import ./kinetic-client world;
   krb5 = import ./krb5 world;
+  kubecaml = import ./kubecaml world;
   kyotocabinet = import ./kyotocabinet world;
   lablgl = import ./lablgl world;
   lablgtk = import ./lablgtk world;
@@ -896,6 +914,7 @@ world:
   liquidsoap = import ./liquidsoap world;
   liquidsoap-daemon = import ./liquidsoap-daemon world;
   litiom = import ./litiom world;
+  llopt = import ./llopt world;
   llvm = import ./llvm world;
   llvmgraph = import ./llvmgraph world;
   lo = import ./lo world;
@@ -1077,6 +1096,8 @@ world:
   mlt_parser = import ./mlt_parser world;
   mm = import ./mm world;
   mmseg = import ./mmseg world;
+  mock = import ./mock world;
+  mock-ounit = import ./mock-ounit world;
   modelica_ml = import ./modelica_ml world;
   monadlib = import ./monadlib world;
   monads = import ./monads world;
@@ -1098,6 +1119,7 @@ world:
   mtime = import ./mtime world;
   mtl = import ./mtl world;
   multipart-form-data = import ./multipart-form-data world;
+  murmur3 = import ./murmur3 world;
   mustache = import ./mustache world;
   mvar = import ./mvar world;
   mybuild = import ./mybuild world;
@@ -1435,6 +1457,7 @@ world:
   ppx_derivers = import ./ppx_derivers world;
   ppx_deriving = import ./ppx_deriving world;
   ppx_deriving_cmdliner = import ./ppx_deriving_cmdliner world;
+  ppx_deriving_crowbar = import ./ppx_deriving_crowbar world;
   ppx_deriving_hardcaml = import ./ppx_deriving_hardcaml world;
   ppx_deriving_morphism = import ./ppx_deriving_morphism world;
   ppx_deriving_protobuf = import ./ppx_deriving_protobuf world;
@@ -1478,6 +1501,10 @@ world:
   ppx_pipebang = import ./ppx_pipebang world;
   ppx_poly_record = import ./ppx_poly_record world;
   ppx_protocol_conv = import ./ppx_protocol_conv world;
+  ppx_protocol_conv_json = import ./ppx_protocol_conv_json world;
+  ppx_protocol_conv_msgpack = import ./ppx_protocol_conv_msgpack world;
+  ppx_protocol_conv_xml_light = import ./ppx_protocol_conv_xml_light world;
+  ppx_protocol_conv_yaml = import ./ppx_protocol_conv_yaml world;
   ppx_regexp = import ./ppx_regexp world;
   ppx_sexp = import ./ppx_sexp world;
   ppx_sexp_conv = import ./ppx_sexp_conv world;
@@ -1495,6 +1522,7 @@ world:
   ppx_where = import ./ppx_where world;
   ppx_xml_conv = import ./ppx_xml_conv world;
   ppxfind = import ./ppxfind world;
+  ppxlib = import ./ppxlib world;
   ppxx = import ./ppxx world;
   prettiest = import ./prettiest world;
   primes = import ./primes world;
@@ -1568,6 +1596,7 @@ world:
   reins = import ./reins world;
   release = import ./release world;
   res = import ./res world;
+  resource_cache = import ./resource_cache world;
   result = import ./result world;
   revops = import ./revops world;
   rfc6287 = import ./rfc6287 world;
@@ -1606,6 +1635,7 @@ world:
   semver = import ./semver world;
   sendmsg = import ./sendmsg world;
   sequence = import ./sequence world;
+  sequencer_table = import ./sequencer_table world;
   sequoia = import ./sequoia world;
   session = import ./session world;
   session-cohttp = import ./session-cohttp world;
@@ -1620,6 +1650,7 @@ world:
   setr = import ./setr world;
   sexp_pretty = import ./sexp_pretty world;
   sexplib = import ./sexplib world;
+  sexplib0 = import ./sexplib0 world;
   sgf = import ./sgf world;
   sha = import ./sha world;
   shared-block-ring = import ./shared-block-ring world;
@@ -1672,6 +1703,7 @@ world:
   sphinxcontrib-ocaml = import ./sphinxcontrib-ocaml world;
   spirv = import ./spirv world;
   splay_tree = import ./splay_tree world;
+  splittable_random = import ./splittable_random world;
   spoc = import ./spoc world;
   spotify-cli = import ./spotify-cli world;
   spotify-web-api = import ./spotify-web-api world;
@@ -1703,11 +1735,13 @@ world:
   stog-rdf = import ./stog-rdf world;
   stog-writing = import ./stog-writing world;
   stone = import ./stone world;
+  string_dict = import ./string_dict world;
   stringext = import ./stringext world;
   sturgeon = import ./sturgeon world;
   subtype-refinement = import ./subtype-refinement world;
   sugar = import ./sugar world;
   sundialsml = import ./sundialsml world;
+  swagger = import ./swagger world;
   swdogen = import ./swdogen world;
   symkat = import ./symkat world;
   syndic = import ./syndic world;
@@ -1834,6 +1868,7 @@ world:
   vhdlib = import ./vhdlib world;
   virtual_dom = import ./virtual_dom world;
   visitors = import ./visitors world;
+  vlq = import ./vlq world;
   vmnet = import ./vmnet world;
   voaacenc = import ./voaacenc world;
   vorbis = import ./vorbis world;
