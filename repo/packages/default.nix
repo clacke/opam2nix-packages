@@ -196,6 +196,7 @@ world:
   bigbro = import ./bigbro world;
   bignum = import ./bignum world;
   bigstring = import ./bigstring world;
+  bigstringaf = import ./bigstringaf world;
   bin_prot = import ./bin_prot world;
   binbin = import ./binbin world;
   bindlib = import ./bindlib world;
@@ -598,6 +599,7 @@ world:
   email_message = import ./email_message world;
   emile = import ./emile world;
   emoji = import ./emoji world;
+  encore = import ./encore world;
   enumerate = import ./enumerate world;
   enumerators = import ./enumerators world;
   erm_xml = import ./erm_xml world;
