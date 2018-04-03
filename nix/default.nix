@@ -15,7 +15,7 @@ let
 			mkdir "$out"
 			tar xaf ${src} -C "$out" --strip-components=1;
 		else
-			ln -s "${src}" "$out"
+			cp -r "${src}" "$out"
 		fi
 	'';
 
