@@ -3,4 +3,4 @@
 	url = git://github.com/ocaml/opam-repository.git
 [submodule "opam2nix"]
 	path = opam2nix
-	url = git://github.com/gfxmonk/opam2nix.git
+	url = git://github.com/obsidiansystems/opam2nix.git

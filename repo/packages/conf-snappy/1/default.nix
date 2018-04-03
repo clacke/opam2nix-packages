@@ -1,15 +1,14 @@
 world:
 let
-    fetchurl = pkgs.fetchurl;
     inputs = lib.filter (dep: dep != true && dep != null)
-    ([  ] ++ (lib.attrValues opamDeps));
+    ([ (pkgs.libsnappy-dev or null) (pkgs.snappy or null)
+        (pkgs.snappy-devel or null) ] ++ (lib.attrValues opamDeps));
     lib = pkgs.lib;
     opam2nix = world.opam2nix;
     opamDeps = 
     {
+      conf-pkg-config = opamSelection.conf-pkg-config;
       ocaml = opamSelection.ocaml;
-      ocamlbuild = opamSelection.ocamlbuild;
-      ocamlfind = opamSelection.ocamlfind or null;
     };
     opamSelection = world.opamSelection;
     pkgs = world.pkgs;
@@ -20,12 +19,12 @@ pkgs.stdenv.mkDerivation
   buildPhase = "${opam2nix}/bin/opam2nix invoke build";
   configurePhase = "true";
   installPhase = "${opam2nix}/bin/opam2nix invoke install";
-  name = "herdtools7-7.46";
+  name = "conf-snappy-1";
   opamEnv = builtins.toJSON 
   {
     deps = opamDeps;
-    files = null;
-    name = "herdtools7";
+    files = ./files;
+    name = "conf-snappy";
     ocaml-version = world.ocamlVersion;
     spec = ./opam;
   };
@@ -33,11 +32,8 @@ pkgs.stdenv.mkDerivation
   {
     opamSelection = opamSelection;
   };
+  prePatch = "cp -r ${./files}/* ./";
   propagatedBuildInputs = inputs;
-  src = fetchurl 
-  {
-    sha256 = "1v3jv4420am9b4jfcj114q023wbzlhaykgxdmwrfk001w99xw1mf";
-    url = "https://github.com/herd/herdtools7/archive/7.46.tar.gz";
-  };
+  unpackPhase = "true";
 }
 

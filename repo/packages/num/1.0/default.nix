@@ -23,7 +23,7 @@ pkgs.stdenv.mkDerivation
   opamEnv = builtins.toJSON 
   {
     deps = opamDeps;
-    files = null;
+    files = ./files;
     name = "num";
     ocaml-version = world.ocamlVersion;
     spec = ./opam;
@@ -32,6 +32,7 @@ pkgs.stdenv.mkDerivation
   {
     opamSelection = opamSelection;
   };
+  prePatch = "cp -r ${./files}/* ./";
   propagatedBuildInputs = inputs;
   src = fetchurl 
   {

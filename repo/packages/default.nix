@@ -414,6 +414,7 @@ world:
   conf-sdpa = import ./conf-sdpa world;
   conf-secp256k1 = import ./conf-secp256k1 world;
   conf-sfml2 = import ./conf-sfml2 world;
+  conf-snappy = import ./conf-snappy world;
   conf-tcl = import ./conf-tcl world;
   conf-time = import ./conf-time world;
   conf-tk = import ./conf-tk world;

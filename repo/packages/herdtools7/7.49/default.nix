@@ -8,7 +8,8 @@ let
     opamDeps = 
     {
       ocaml = opamSelection.ocaml;
-      ocamlfind = opamSelection.ocamlfind;
+      ocamlbuild = opamSelection.ocamlbuild;
+      ocamlfind = opamSelection.ocamlfind or null;
     };
     opamSelection = world.opamSelection;
     pkgs = world.pkgs;
@@ -19,12 +20,12 @@ pkgs.stdenv.mkDerivation
   buildPhase = "${opam2nix}/bin/opam2nix invoke build";
   configurePhase = "true";
   installPhase = "${opam2nix}/bin/opam2nix invoke install";
-  name = "num-1.1";
+  name = "herdtools7-7.49";
   opamEnv = builtins.toJSON 
   {
     deps = opamDeps;
-    files = ./files;
-    name = "num";
+    files = null;
+    name = "herdtools7";
     ocaml-version = world.ocamlVersion;
     spec = ./opam;
   };
@@ -32,12 +33,11 @@ pkgs.stdenv.mkDerivation
   {
     opamSelection = opamSelection;
   };
-  prePatch = "cp -r ${./files}/* ./";
   propagatedBuildInputs = inputs;
   src = fetchurl 
   {
-    sha256 = "1xlkd0svc0mgq5s7nrm2rjrsvg15i9wxqkc1kvwjp6sv8vv8bb04";
-    url = "https://github.com/ocaml/num/archive/v1.1.tar.gz";
+    sha256 = "1az3q7zvf29yzxqh1p4dnydavh1g1f7jpy70779gdmziaxz46jp6";
+    url = "https://github.com/herd/herdtools7/archive/7.49.tar.gz";
   };
 }
 
