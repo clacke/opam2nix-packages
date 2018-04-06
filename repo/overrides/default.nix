@@ -9,7 +9,6 @@ let
 				lib.overrideDerivation def fn
 			else def
 		) versions;
-
 	# XXX it's not really a `configure` phase, is it?
 	addNcurses = def: overrideAll (impl: { nativeBuildInputs = impl.nativeBuildInputs ++ [ncurses]; }) def;
 	disableStackProtection = def: overrideAll (impl: { hardeningDisable = [ "stackprotector" ]; }) def;
@@ -126,5 +125,14 @@ in
 
 		# fallout of https://github.com/ocaml/opam-repository/pull/6657
 		omake = addNcurses opamPackages.omake;
+
+		base64 = overrideAll (impl:
+			{
+				buildPhase = ''
+					sed -i -e 's/(libraries (bytes))//' src/jbuild
+					${super.opam2nix}/bin/opam2nix invoke build
+				'';
+			}
+		) opamPackages.base64;
 	};
 }
