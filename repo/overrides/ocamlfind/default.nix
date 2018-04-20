@@ -35,10 +35,15 @@ in {
 					export CAML_LD_LIBRARY_PATH="''${CAML_LD_LIBRARY_PATH}''${CAML_LD_LIBRARY_PATH:+:}''$1/lib"
 				fi
 			fi
+		}
+		addEnvHooks "$targetOffset" addOCamlPath
+		addOcamlfindDestdir () {
 			export OCAMLFIND_DESTDIR="''$out/lib/"
 			mkdir -p "''$out/lib"
 		}
-		addEnvHooks "$targetOffset" addOCamlPath
+		preConfigureHooks+=(addOcamlfindDestdir)
+		# TODO be better
+		configurePhase+="; addOcamlfindDestdir"
 	'';
 }
 
