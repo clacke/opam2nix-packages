@@ -66,6 +66,14 @@ let
 		defaultBasePackages = ["base-unix" "base-bigarray" "base-threads"]; #XXX this is a hack.
 		defaultArgs = [];
 
+    isOpamFilename = x: builtins.match "(.*\\.)?opam$" x != null;
+    getUniqueOpamFile = src:
+      let candidates = builtins.filter isOpamFilename (builtins.attrNames (builtins.readDir src));
+          numCandidates = builtins.length candidates;
+      in if numCandidates != 1
+         then throw "expected 1 opam file at ${src}; found ${builtins.toString numCandidates} instead"
+         else src + "/${builtins.elemAt candidates 0}";
+
 		selectLax = {
 			# used by `build`, so that you can combine import-time (world) options
 			# with select-time options
@@ -204,7 +212,6 @@ let
 			in
 			lib.extendDerivation true passthru drv;
 
-
 		# Build nix derivations from (local) opam libraries, i.e. ones not in the
 		# official repositories.
 		buildOpamPackages = { packagesParsed, ... } @ attrs:
@@ -215,34 +222,28 @@ let
 					{ packageName
 					, version
 					, src
-					, opamFile ? "\"$(find . -maxdepth 1 -name 'opam' -o -name '*.opam')\""
+					, opamFile ? getUniqueOpamFile src
 					}:
 
-					stdenv.mkDerivation {
-						name = "${packageName}-${version}-repo";
-						inherit src;
-						configurePhase = "true";
-						buildPhase = "true";
-						installPhase = ''
-							if [ -z "${version}" ]; then
-								echo "Error: no version specified"
-								exit 1
-							fi
-							dest="$out/packages/${packageName}/${packageName}.${version}"
-							mkdir -p "$dest"
-							cp ${opamFile} "$dest/opam"
-							if ! [ -f "$dest/opam" ]; then
-								echo "Error: opam file not created"
-								exit 1
-							fi
-							if [ -f "${src}" ]; then
-								echo 'archive: "${src}"' > "$dest/url"
-							else
-								echo 'local: "${src}"' > "$dest/url"
-							fi
-						'';
-						fixupPhase = "true";
-					};
+					pkgs.runCommand "${packageName}-${version}-repo" {
+				  } ''
+						if [ -z "${version}" ]; then
+							echo "Error: no version specified"
+							exit 1
+						fi
+						dest="$out/packages/${packageName}/${packageName}.${version}"
+						mkdir -p "$dest"
+						cp ${opamFile} "$dest/opam"
+						if ! [ -f "$dest/opam" ]; then
+							echo "Error: opam file not created"
+							exit 1
+						fi
+						if [ -f "${src}" ]; then
+							echo 'archive: "${src}"' > "$dest/url"
+						else
+							echo 'local: "${src}"' > "$dest/url"
+						fi
+					'';
 
 				makeSpec = { packageName, version, ... }: { name = packageName; constraint = "=${version}"; };
 
