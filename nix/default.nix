@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> {} }:
-{ src, opam2nix ? null, opam2nixImpl ? null }:
+{ src, opam2nix ? null, opam2nixImpl ? null, cpio ? pkgs.cpio }:
 with pkgs;
 let _opam2nix = opam2nix; in
 let
@@ -110,6 +110,32 @@ let
 			echo 'import ./packages' > "$out/default.nix"
 		'';
 
+		filterRepoRaw = opamRepo: stdenvNoCC.mkDerivation {
+			name = "${opamRepo.name}-filtered";
+			src = opamRepo;
+			phases = [ "unpackPhase" "installPhase" ];
+			nativeBuildInputs = [ cpio ];
+			installPhase = ''
+				shopt -s nullglob
+				echo "looking in $src"
+				mkdir -p -- "$out"
+				find . -type d -print0 -or -name "opam" -print0 | cpio -p0 -- "$out"
+			'';
+		};
+
+		memoBetter = derivation {
+			name = "${raw.name}-memo";
+			inherit (raw) system;
+                        raw = raw;
+                        builder = stdenvNoCC.shell;
+			args = ["-e" "cp -a ${raw} ${out}"];
+			outputHashMode = "recursive";
+			outputHashAlgo = "sha256";
+			outputHash = "${runCommand "${raw.name}-memo-hash" {} "nix-hash --type sha256 ${raw}"}";
+		};
+
+		filterRepo = opamRepo: memoBetter (filterRepoRaw opamRepo);
+
 		selectStrict = {
 			# exposed as `select`, so you know if you're using an invalid argument
 			ocamlAttr ? null,
@@ -215,16 +241,25 @@ let
 								echo 'local: "${src}"' > "$dest/url"
 							fi
 						'';
+						fixupPhase = "true";
 					};
 
 				makeSpec = { packageName, version, ... }: { name = packageName; constraint = "=${version}"; };
 
 				repos = map opamRepo attrs.packagesParsed;
 
+				filteredRepos = map filterRepo attrs.packagesParsed;
+
 				opamAttrs = (drvAttrs // {
 					# `specs` is undocumented, left for consistency
 					specs = (attrs.specs or []) ++ map makeSpec attrs.packagesParsed;
 					extraRepos = (attrs.extraRepos or []) ++ repos;
+				});
+
+				opamAttrsSelect = (drvAttrs // {
+					# `specs` is undocumented, left for consistency
+					specs = (attrs.specs or []) ++ map makeSpec attrs.packagesParsed;
+					extraRepos = (attrs.extraRepos or []) ++ filteredRepos;
 				});
 			in
 			{
