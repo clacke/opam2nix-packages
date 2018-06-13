@@ -13,6 +13,7 @@ world:
   "1.0+beta18.1" = import ./1.0+beta18.1 world;
   "1.0+beta19" = import ./1.0+beta19 world;
   "1.0+beta19.1" = import ./1.0+beta19.1 world;
+  "1.0+beta20" = import ./1.0+beta20 world;
   "1.0+beta2" = import ./1.0+beta2 world;
   "1.0+beta3" = import ./1.0+beta3 world;
   "1.0+beta4" = import ./1.0+beta4 world;
